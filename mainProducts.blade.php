@@ -40,7 +40,7 @@
 </div>
 <div class="dropdown">
     <button class="button" type="submit" onclick="myFunction1()">
-        <span> تعديل</span>
+       <span> تعديل</span>
         <img class="iconedit" src="{{asset('f_assets/svg/edit.svg')}}">
     </button>
     <div class="divedit" id="divedit">
@@ -96,142 +96,137 @@
 
     <section class="section1">
         <div class="container">
-            @if($cat_id!=null)
-                <div type="button" class="contenprod text-center mb-0" data-toggle="modal" data-target="#myModal">
-                    <input type="image" src="{{asset('f_assets/svg/اضافة.svg')}}" name="saveForm" class="img"
-                           id="saveForm"
-                           data-whatever="@getbootstrap"/>
-                    <h1>انقر لإضافة منتج</h1>
-                </div>
-            @endif
-            {{--            @dd($products)--}}
-            <div id="products" class="">
-                {{--            @include('subscribers.productsCard')--}}
-                <section class="section1 mt-3">
+                    @if($cat_id!=null)
+            <div type="button" class="contenprod text-center mb-0" data-toggle="modal" data-target="#myModal" id="modal1-click">
+                <input type="image" src="{{asset('f_assets/svg/اضافة.svg')}}" name="saveForm" class="img" id="saveForm"
+                       data-whatever="@getbootstrap"/>
+                <h1>انقر لإضافة منتج</h1>
+            </div>
+        @endif
+        {{--            @dd($products)--}}
+        <div id="products" class="">
+            {{--            @include('subscribers.productsCard')--}}
+            <section class="section1 mt-3">
 
-                    <div class="row">
-                        @if($products!= null)
-                            @foreach($products as $product)
-                                <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
-                                    <div class="enterproduct ">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-tool dropdown-toggle"
-                                                    data-toggle="dropdown">
-                                                <i class="fas fa-wrench"></i>
-                                            </button>
+                <div class="row">
+                    @if($products!= null)
+                        @foreach($products as $product)
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-3">
+                                <div class="enterproduct ">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-tool dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <i class="fas fa-wrench"></i>
+                                        </button>
 
-                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                                @if($cat_id !==null)
-                                                    <ul class="list_edit text-center">
-                                                        <li>
-                                                            <form class="mr-1 "
-                                                                  action="{{route('DeleteProduct',$product->id)}}"
-                                                                  method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="link2 text-center" type="submit">
-                                                                    حذف
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                        <li class="">
-                                                            <a class="code-dialog" href="#"
-                                                               data-id="{{$product->id}}"
-                                                               data-name="{{$product->name}}"
-                                                               data-description="{{$product->description}}"
-                                                               data-price="{{$product->price}}"
-                                                               data-image-product="{{asset($product->image_product)}}"
-                                                               data-image1="{{asset($product->image1)}}"
-                                                               data-image2="{{asset($product->image2)}}"
-                                                               data-image3="{{asset($product->image3)}}"
-                                                               data-image4="{{asset($product->image4)}}"
-                                                               data-image5="{{asset($product->image5)}}"
-                                                               data-toggle="modal" data-target="#myModalEdit"
-                                                               data-target-id="{{$product->id}}"> تعديل
-                                                            </a>
-                                                        </li>
-                                                        <li style="border-bottom: 0;">
-                                                            <a class="code-dialog-offer" href="#"
-                                                               data-id="{{$product->id}}"
-                                                               data-name="{{$product->name}}"
-                                                               data-description="{{$product->description}}"
-                                                               data-price="{{$product->price}}"
-                                                               data-price_new="{{$product->price_new}}"
-                                                               data-days-offer="{{$product->days_offer}}"
-                                                               data-image-product="{{asset($product->image_product)}}"
-                                                               data-image1="{{asset($product->image1)}}"
-                                                               data-image2="{{asset($product->image2)}}"
-                                                               data-image3="{{asset($product->image3)}}"
-                                                               data-image4="{{asset($product->image4)}}"
-                                                               data-image5="{{asset($product->image5)}}"
-                                                               data-toggle="modal" data-target="#myModalOffer">إضافة
-                                                                للعروض</a>
-                                                        </li>
-                                                    </ul>
-                                                @endif
-
-
-                                                @if($cat_id==null)
-                                                    <ul class="list1_edit text-center">
-                                                        <li>
-                                                            <form class="mr-1 "
-                                                                  action="{{route('OfferDelete',$product->id)}}"
-                                                                  method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="link2 text-center" type="submit">
-                                                                    حذف العرض
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                    {{--                                                {{—                                                <div class="dropdown-content text-center" id="dropdown-content">--}}
-                                                    {{--                                                {{—                                                    <a>حذف العرض </a>--}}
-                                                    {{--                                                {{—                                                </div>--}}
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <a href="{{route('productDetails',$product->id)}}">
-                                            <div class="contimg">
-
-                                                <img class="imgprod" src="{{asset($product->image_product)}}">
-
-                                            </div>
-
-                                            <h1>{{$product->name}}</h1>
-                                            <div style="display: flex;justify-content: space-around;">
-                                                <div>
-                                                    @if($product->price_new)
-                                                        <h2>{{$product->price}}<span>SYR</span></h2>
-                                                </div>
-                                            </div>
-                                            @else
-
-                                                <div style="display: flex;justify-content: space-around;">
-                                                    <div>
-                                                        <h2 class="old">{{$product->price}}<span>SYR</span></h2>
-                                                    </div>
-                                                    <div>
-                                                        <h2>{{$product->price_new}}<span>SYR</span></h2>
-                                                    </div>
-                                                </div>
+                                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                            @if($cat_id !==null)
+                                                <ul class="list_edit text-center">
+                                                    <li>
+                                                        <form class="mr-1 "
+                                                              action="{{route('DeleteProduct',$product->id)}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="link2 text-center" type="submit">
+                                                                حذف
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                    <li class="">
+                                                        <a class="code-dialog" href="#"
+                                                           data-id="{{$product->id}}"
+                                                           data-name="{{$product->name}}"
+                                                           data-description="{{$product->description}}"
+                                                           data-price="{{$product->price}}"
+                                                           data-image-product="{{asset($product->image_product)}}"
+                                                           data-image1="{{asset($product->image1)}}"
+                                                           data-image2="{{asset($product->image2)}}"
+                                                           data-image3="{{asset($product->image3)}}"
+                                                           data-image4="{{asset($product->image4)}}"
+                                                           data-image5="{{asset($product->image5)}}"
+                                                           data-toggle="modal" data-target="#myModalEdit"
+                                                           data-target-id="{{$product->id}}"> تعديل
+                                                        </a>
+                                                    </li>
+                                                    <li  style="border-bottom: 0;">
+                                                        <a class="code-dialog-offer" href="#" data-id="{{$product->id}}"
+                                                           data-name="{{$product->name}}"
+                                                           data-description="{{$product->description}}"
+                                                           data-price="{{$product->price}}"
+                                                           data-days-offer="{{$product->days_offer}}"
+                                                           data-image-product="{{asset($product->image_product)}}"
+                                                           data-image1="{{asset($product->image1)}}"
+                                                           data-image2="{{asset($product->image2)}}"
+                                                           data-image3="{{asset($product->image3)}}"
+                                                           data-image4="{{asset($product->image4)}}"
+                                                           data-image5="{{asset($product->image5)}}"
+                                                           data-toggle="modal" data-target="#myModalOffer">إضافة
+                                                            للعروض</a>
+                                                    </li>
+                                                </ul>
                                             @endif
-                                        </a>
 
 
-                                        {{--                                            <a class="link2 " href="{{route('DeleteProduct',$product->id)}}">حذف</a>--}}
-
-
+                                            @if($cat_id==null)
+                                                <ul class="list1_edit text-center">
+                                                    <li>
+                                                        <form class="mr-1 "
+                                                              action="{{route('OfferDelete',$product->id)}}"
+                                                              method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="link2 text-center" type="submit" >
+                                                                حذف العرض
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                                {{--                                                {{—                                                <div class="dropdown-content text-center" id="dropdown-content">--}}
+                                                {{--                                                {{—                                                    <a>حذف العرض </a>--}}
+                                                {{--                                                {{—                                                </div>--}}
+                                            @endif
+                                        </div>
                                     </div>
+                                    <a href="{{route('productDetails',$product->id)}}">
+                                        <div class="contimg">
+
+                                            <img class="imgprod" src="{{asset($product->image_product)}}">
+
+                                        </div>
+
+                                        <h1>{{$product->name}}</h1>
+                                        <div style="display: flex;justify-content: space-around;">
+                                        <div>
+                                        <h2>{{$product->price}}<span>SYR</span></h2>
+                                        </div>
+                                        </div>
+
+                                        <div style="display: flex;justify-content: space-around;">
+                                        <div >
+                                        <h2 class="old">{{$product->price}}<span>SYR</span></h2>
+                                        </div>
+                                        <div>
+                                        <h2>{{$product->price}}<span>SYR</span></h2>
+                                        </div>
+                                        </div>
+                                        
+                                    </a>
+
+
+                                    {{--                                            <a class="link2 " href="{{route('DeleteProduct',$product->id)}}">حذف</a>--}}
+
 
                                 </div>
-                            @endforeach
-                        @endif
-                    </div>
+
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
 
 
-                </section>
-            </div>
+            </section>
+        </div>
         </div>
 
     </section>
@@ -243,13 +238,11 @@
     <form id="formadd" action="{{ route('AddProduct') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal fade p-0" id="myModal" style="verflow-y: hidden;">
-            <div class="modal-dialog mr-auto ml-auto mt-0 mb-0 "
-                 style="height: 100%;display: flex;justify-content: center;align-items: center;">
-                <div class="modal-content m-0">
+            <div class="modal-dialog mr-auto ml-auto mt-0 mb-0 "  style="height: 100%;display: flex;justify-content: center;align-items: center;">
+                <div class="modal-content m-0" >
                     <!-- Modal Header -->
                     <div class="modal-header text-center">
-                        <h4 class="modal-title " style="margin-left: auto;position: relative;width: 100%;">أدخل
-                            منتج </h4>
+                        <h4 class="modal-title " style="margin-left: auto;position: relative;width: 100%;">أدخل منتج </h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
@@ -263,12 +256,11 @@
                                 <div class="contain_Enterimg">
                                     <input hidden id="cat_id" name="cat_id" value="{{$cat_id}}">
 
-                                    <div class="form-group m-auto">
-                                        <img class="emterimgproduct1 m-auto" src="{{asset('f_assets/svg/square.svg')}}"
-                                             style="height: auto;"
+                                    <div class="form-group m-auto" >
+                                        <img class="emterimgproduct1 m-auto" src="{{asset('f_assets/svg/square.svg')}}" style="height: auto;"
                                              onclick="triggerClick()" id="profileDisplay">
                                         <input class="inputimg" type="file" name="image_product" id="porfileImage"
-                                               onchange="displayImage(this)" class="form-control" accept="image/*"
+                                               onchange="displayImage(this)" class="form-control"  accept="image/*"
                                                style="display:none">
                                     </div>
 
@@ -310,20 +302,20 @@
                                     </div>
                                     {{--                                    <button class="btn1" id="btn1" onclick="createProduct()">حفظ</button>--}}
 
-
+                                   
                                 </div>
 
                             </div>
                             <div class="col-12" style="margin-top: 2rem;">
-                                <button type="button" data-toggle="modal" id="btn1"
-                                        data-target="#modelemgs" data-dismiss="modal"
-                                        class="btn1 btn-default btn-next">التالي
-                                </button>
-                                <button type="button" class="btn1" id="btn1" style="float:right"
-                                        data-dismiss="modal">رجوع
+<button type="button" data-toggle="modal" id="btn1"
+                                            data-target="#modelemgs" data-dismiss="modal"
+                                            class="btn1 btn-default btn-next " >التالي
+                                    </button>
+                                    <button type="button" class="btn1" id="btn1" style="float:right"
+                                            data-dismiss="modal">رجوع
 
-                                </button>
-                            </div>
+                                    </button>
+</div>
                         </div>
 
                     </div>
@@ -338,7 +330,7 @@
             <div class="modal-dialog solve" style="max-width: max-content;">
                 <div class="modal-content" id="modal-content_img">
                     <div class="modal-header" style="padding: 0;">
-                        <h4 class="modal-title text-center">إضافة منتج</h4>
+                        <h4 class="modal-title text-center" >إضافة منتج</h4>
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-6">
@@ -363,7 +355,7 @@
                             <input hidden id="cat_id" name="cat_id" value="{{$cat_id}}">
 
                             <div class="contain_Enterimg">
-                                <div class="form-group" style="margin: 0;">
+                                <div class="form-group"style="margin: 0;">
                                     <img class="emterimgproduct2" src="{{asset('f_assets/svg/square.svg')}}"
                                          onclick="triggerClickimg2()" id="profileDisplayimg2">
                                     <input class="inputimg" type="file" name="image2" id="porfileImage2"
@@ -430,13 +422,11 @@
         @method('PATCH')
         <div class="modal fade " id="myModalEdit" role="dialog" tabindex="-1" aria-labelledby="myModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog mr-auto ml-auto mt-0 mb-0"
-                 style="height: 100%;display: flex;justify-content: center;align-items: center;">
+            <div class="modal-dialog mr-auto ml-auto mt-0 mb-0"  style="height: 100%;display: flex;justify-content: center;align-items: center;">
                 <div class="modal-content m-0">
                     <!-- Modal Header -->
                     <div class="modal-header text-center m-0">
-                        <h4 class="modal-title" style="margin-left: auto;position: relative;width: 100%;">تعديل
-                            المنتج </h4>
+                        <h4 class="modal-title" style="margin-left: auto;position: relative;width: 100%;">تعديل المنتج </h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
@@ -457,7 +447,7 @@
 
                                         <input class=" form-control inputimg " type="file" name="image_product"
                                                id="porfileImageedit"
-                                               onchange="displayImageedit(this)" accept="image/*"
+                                               onchange="displayImageedit(this)"  accept="image/*"
                                                style="display:none">
                                     </div>
 
@@ -500,9 +490,10 @@
                                 {{--                                    <button class="btn1" id="btn1" onclick="createProduct()">حفظ</button>--}}
 
 
+
                             </div>
                             <div class="col-12" style="margin-top: 2rem;">
-                                <button type="submit" id="btn1" data-dismiss="modal" data-toggle="modal"
+                            <button type="submit" id="btn1" data-dismiss="modal" data-toggle="modal"
                                         data-target="#Modal_Editimg" class="btn1 btn-default btn-next">التالي
                                 </button>
                                 <button class="btn1" id="btn1" style="float: right;padding-left: 20px"
@@ -523,7 +514,7 @@
 
         <div class="modal fade" id="Modal_Editimg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog solve" style="max-width: max-content;">
+            <div class="modal-dialog solve" style="max-width: max-content;" >
 
                 <div class="modal-content" id="modal-content_img">
                     <div class="modal-header" style="padding: 0;">
@@ -632,13 +623,11 @@
         {{csrf_field()}}
         <div class="modal fade p-0" id="myModalOffer" role="dialog" tabindex="-1" aria-labelledby="myModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog mr-auto ml-auto mt-0 mb-0"
-                 style="height: 100%;display: flex;justify-content: center;align-items: center;">
+            <div class="modal-dialog mr-auto ml-auto mt-0 mb-0"  style="height: 100%;display: flex;justify-content: center;align-items: center;">
                 <div class="modal-content m-0" id="modal-content1">
                     <!-- Modal Header -->
                     <div class="modal-header text-center">
-                        <h4 class="modal-title " style="margin-left: auto;position: relative;width: 100%;">إضافة المنتج
-                            الى العروض </h4>
+                        <h4 class="modal-title " style="margin-left: auto;position: relative;width: 100%;">إضافة المنتج الى العروض </h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Modal body -->
@@ -655,7 +644,7 @@
                                              src="{{asset('f_assets/svg/square.svg')}}"
                                              onclick="triggerClickOffer()" id="profileDisplayOffer">
                                         <input class="inputimg" type="file" name="image_product"
-                                               id="porfileImageOffer" accept="image/*"
+                                               id="porfileImageOffer"  accept="image/*"
                                                onchange="displayImageOffer(this)" class="form-control"
                                                style="display:none">
 
@@ -670,8 +659,7 @@
                                 <div id="cont">
                                     <div class="continput form-group">
                                         <div class="span_img">
-                                            <img class="icon_model"
-                                                 src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
+                                            <img class="icon_model" src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
                                             <span class="products_model">اسم المنتج</span>
                                         </div>
                                         <input class="Enterprodect proName" type="text" name="name" id="name"
@@ -679,8 +667,7 @@
                                     </div>
                                     <div class="continput form-group">
                                         <div class="span_img">
-                                            <img class="icon_model"
-                                                 src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
+                                            <img class="icon_model" src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
                                             <span class="products_model">شرح عن المنتج </span>
                                         </div>
                                         <input class="Enterprodect proDescription" type="text" name="description"
@@ -689,26 +676,23 @@
 
                                     </div>
                                     <div class="continput form-group row" style="display:flex">
-                                        <div class="col-sm-6 col-12" style="padding:0;">
-                                            <div class="span_img">
-                                                <img class="icon_model"
-                                                     src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
-                                                <span class="products_model">السعر قبل الحسم</span>
-                                            </div>
-                                            <input class="Enterprodectnumber proPrice" placeholder="0" type="number"
-                                                   title="الرجاء ملئ الحقل بارقام فقط" name="price" id="price">
+                                        <div class="col-sm-6 col-12" style="padding:0;" >
+                                        <div class="span_img">
+                                            <img class="icon_model" src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
+                                            <span class="products_model">السعر قبل الحسم</span>
                                         </div>
-                                        <div class="col-sm-6 col-12" style="padding:0;">
-                                            <div class="span_img">
-                                                <img class="icon_model"
-                                                     src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
-                                                <span class="products_model">
+                                        <input class="Enterprodectnumber proPrice" placeholder="0" type="number" title="الرجاء ملئ الحقل بارقام فقط" name="price" id="price"  >
+                                        </div>
+                                        <div  class="col-sm-6 col-12" style="padding:0;">
+                                        <div class="span_img">
+                                            <img class="icon_model" src="{{asset('f_assets/svg/الايقونة البرتقانية.svg')}}" width="10">
+                                            <span class="products_model">
                                                 السعر بعد الحسم
                                             </span>
-                                            </div>
-                                            <input class="Enterprodectnumber proPrice_new" placeholder="0" type="number"
-                                                   title="الرجاء ملئ الحقل بارقام فقط" name="price_new" id="price_new">
                                         </div>
+                                        <input class="Enterprodectnumber proPrice" placeholder="0" type="number" title="الرجاء ملئ الحقل بارقام فقط" name="price" id="price-new"  >
+                                        </div>
+
 
 
                                     </div>
@@ -729,16 +713,16 @@
 
                                     </div>
                                     {{--                                    <button id="btn">حفظ</button>--}}
-
+                                    
                                 </div>
 
 
                             </div>
                             <div class="col-12" style="margin-top: 2rem;">
-                                <button type="submit" id="btn1" data-dismiss="modal" data-toggle="modal"
-                                        data-target="#Modal_offer1" class="btn1 btn-default btn-next">التالي
-                                </button>
-                                <button id="btn" style="float: right;" data-dismiss="modal">إغلاق</button>
+                            <button type="submit" id="btn1" data-dismiss="modal" data-toggle="modal"
+                                            data-target="#Modal_offer1" class="btn1 btn-default btn-next">التالي
+                                    </button>
+                                    <button id="btn" style="float: right;" data-dismiss="modal">إغلاق</button>
                             </div>
 
                         </div>
@@ -910,7 +894,6 @@
             // console.log(name);
             var description = $(this).attr('data-description');
             var price = $(this).attr('data-price');
-            var price_new = $(this).attr('data-price_new');
             var Offer = $(this).attr('data-days-offer');
             console.log(Offer);
             var image_product = $(this).attr('data-image-product');
@@ -924,7 +907,6 @@
             $('#myModalOffer').find('.proName').val(name);
             $('#myModalOffer').find('.proDescription').val(description);
             $('#myModalOffer').find('.proPrice').val(price);
-            $('#myModalOffer').find('.proPrice_new').val(price_new);
             document.getElementById('sel1').value = Offer;
 
 
@@ -1078,6 +1060,24 @@
 </script>
 
 <script>
+
+document.querySelector("#modal1-click").onclick = function(){
+       
+                //condition for add 
+                var modal1Add =document.querySelector("#modelemgs"),
+     modal2Add =document.querySelector("#myModal"),
+     modalnextAddButton = document.querySelector("#modal1-click").querySelector(".btn1");
+
+     modalnextAddButton.onclick = function(){
+        console.log("click modalnextAddButton")
+    }
+
+    }
+
+
+
+
+
 
 
     $(".continput input").on("focus", function () {
